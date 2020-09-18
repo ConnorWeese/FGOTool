@@ -10,23 +10,32 @@ namespace FGOTool
     {
         //private members of the servant class
         private String ServantName; //name of the servant
-        private Dictionary<String, String> ServantStats;    //dictionary for storing the stats of a servant
+        private int ServantStars;   //number of stars of the servant
+        private Dictionary<String, int> ServantStats;    //dictionary for storing the stats of a servant
         private Dictionary<String, int> ServantAscMats; //dictionary for storing the number of ascention materials a servant needs
         private Dictionary<String, int> ServantSkillMats;   //dictionary for storing the number of skill materials a servant needs
+        private List<int> BondPoints;   //number of bond points per bond level of the servant
 
         //public class for initializing a new servant
         public Servant(String name)
         {
             this.ServantName = name;    //will have to change once I implement how names are input
-            this.ServantStats = new Dictionary<String, String>();
+            this.ServantStars = 0;
+            this.ServantStats = new Dictionary<String, int>();
             this.ServantAscMats = new Dictionary<String, int>();
             this.ServantSkillMats = new Dictionary<String, int>();
+            this.BondPoints = new List<int>();
         }
 
-        //public method for initializing a servant from a user's profile
-        public Servant(String[] info)
+        //public method for initializing a servant from database
+        public Servant(String name, int stars, Dictionary<String, int> stats, Dictionary<String, int> ascMats, Dictionary<String, int> skillMats, List<int> bond)
         {
-            //to be filled once class User is completed and how to store servant info is decided
+            this.ServantName = name;
+            this.ServantStars = stars;
+            this.ServantStats = stats;
+            this.ServantAscMats = ascMats;
+            this.ServantSkillMats = skillMats;
+            this.BondPoints = bond;
         }
 
         //public method to get the name of a servant
@@ -36,9 +45,9 @@ namespace FGOTool
         }
 
         //public method to return the stats of a servant
-        public Dictionary<String, String> getStats()
+        public Dictionary<String, int> getStats()
         {
-            Dictionary<String, String> result = this.ServantStats;  //make a copy of the servant stats and return that
+            Dictionary<String, int> result = this.ServantStats;  //make a copy of the servant stats and return that
             return result;
         }
 

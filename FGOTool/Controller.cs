@@ -3,7 +3,9 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,13 +19,133 @@ namespace FGOTool
             
         }
 
-        public String getInfo()
+        //temporary method for getting servant data off the mongo database
+        public String getServant(String name)
         {
+            //needs to be updated with a method to put the name in a common format for use on the database
+            var filter = Builders<BsonDocument>.Filter.Eq("name", name);    //creates a filter for the servant name
+
+            //create a client and subsequent variables to access the servantInfo collection
             var client = new MongoClient("mongodb+srv://generaluser:BIPUY9Wfb2gqwPwK@cluster0.kgl8p.mongodb.net/FGOTool?retryWrites=true&w=majority");
-            var database = client.GetDatabase("sample_airbnb");
-            var collection = database.GetCollection<BsonDocument>("listingsAndReviews");
-            var document = collection.Find(new BsonDocument()).FirstOrDefault();
-            return document.ToString();
+            var database = client.GetDatabase("servants");
+            var collection = database.GetCollection<BsonDocument>("servantInfo");
+
+            try
+            {
+                var document = collection.Find(filter).First(); //try to get the first document with that servant name
+                return document.ToString();
+            }
+            catch
+            {
+                return "Servant not found";
+            }
+        }
+
+        //method to convert the Bson Document into a servant
+        private Servant toServant(BsonDocument document)
+        {
+            String servantName = "";
+            int servantStars = 0;
+            Dictionary<String, int> servantStats = new Dictionary<String, int>();
+            Dictionary<String, int> servantAscMats = new Dictionary<String, int>();
+            Dictionary<String, int> servantSkillMats = new Dictionary<String, int>();
+            List<int> bondPoints = new List<int>();
+
+            //iterate over all the elements of the document
+            foreach(BsonElement element in document)
+            {
+                switch (element.Name)
+                {
+                    //servant's name
+                    case "name":
+                        if (element.Value.IsString) //if the value is actually a string
+                        {
+                            servantName = element.Value.AsString;
+                        }
+                        break;
+                    //servant's stars
+                    case "stars":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStars = element.Value.AsInt32;
+                        }
+                        break;
+                    //servant's base hp
+                    case "baseHP":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStats.Add("Base HP", element.Value.AsInt32);
+                        }
+                        break;
+                    //servant's max hp
+                    case "maxHP":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStats.Add("Max HP", element.Value.AsInt32);
+                        }
+                        break;
+                    //servant's grailed hp
+                    case "grailHP":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStats.Add("Grail HP", element.Value.AsInt32);
+                        }
+                        break;
+                    //servant's base attack
+                    case "baseATK":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStats.Add("Base ATK", element.Value.AsInt32);
+                        }
+                        break;
+                    //servant's max attack
+                    case "maxATK":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStats.Add("Max ATK", element.Value.AsInt32);
+                        }
+                        break;
+                    //servant's grailed attack
+                    case "grailATK":
+                        if (element.Value.IsInt32)  //if the value is actually an integer
+                        {
+                            servantStats.Add("Grail ATK", element.Value.AsInt32);
+                        }
+                        break;
+                    //servant's ascension mats
+                    case "ascensionMats":
+                        if (element.Value.IsBsonDocument)   //if the value is actually a Bson Document
+                        {
+                            foreach (BsonElement material in element.Value.AsBsonDocument)
+                            {
+                                servantAscMats.Add(material.Name, material.Value.AsInt32);
+                            }
+                        }
+                        break;
+                    //servant's skill mats
+                    case "skillMats":
+                        if (element.Value.IsBsonDocument)   //if the value is actually a Bson Document
+                        {
+                            foreach (BsonElement material in element.Value.AsBsonDocument)
+                            {
+                                servantSkillMats.Add(material.Name, material.Value.AsInt32);
+                            }
+                        }
+                        break;
+                    //servant's bond points for each bond level
+                    case "bondPoints":
+                        if (element.Value.IsBsonArray)  //if the value is actually a Bson Array
+                        {
+                            foreach (BsonValue point in element.Value.AsBsonArray)
+                            {
+                                bondPoints.Add(point.AsInt32);
+                            }
+                        }
+                        break;
+                }
+            }
+
+            return new Servant(servantName, servantStars, servantStats, servantAscMats, servantSkillMats, bondPoints);
         }
 
         public void addUshi()
