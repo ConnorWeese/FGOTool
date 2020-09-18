@@ -16,5 +16,12 @@ namespace FGOTool
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            Controller controller = new Controller();
+            //label1.Text = controller.getInfo();
+            //controller.addUshi();
+        }
     }
 }
