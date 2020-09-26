@@ -20,7 +20,7 @@ namespace FGOTool
         }
 
         //temporary method for getting servant data off the mongo database
-        public String getServant(String name)
+        public Servant getServant(String name)
         {
             //needs to be updated with a method to put the name in a common format for use on the database
             var filter = Builders<BsonDocument>.Filter.Eq("name", name);    //creates a filter for the servant name
@@ -33,11 +33,13 @@ namespace FGOTool
             try
             {
                 var document = collection.Find(filter).First(); //try to get the first document with that servant name
-                return document.ToString();
+
+                return toServant(document);
+                //return document.ToString();
             }
             catch
             {
-                return "Servant not found";
+                return null;
             }
         }
 

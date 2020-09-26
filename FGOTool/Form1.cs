@@ -29,7 +29,7 @@ namespace FGOTool
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label1.Text = controller.getServant(textBox1.Text);
+            //label1.Text = controller.getServant(textBox1.Text);
         }
     }
 }
