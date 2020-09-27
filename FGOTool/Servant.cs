@@ -14,18 +14,8 @@ namespace FGOTool
         private Dictionary<String, int> ServantStats;    //dictionary for storing the stats of a servant
         private Dictionary<String, int> ServantAscMats; //dictionary for storing the number of ascention materials a servant needs
         private Dictionary<String, int> ServantSkillMats;   //dictionary for storing the number of skill materials a servant needs
+        private Dictionary<String, int> ServantMatCount;    //dictionary for storing the number of materials used on a servant
         private List<int> BondPoints;   //number of bond points per bond level of the servant
-
-        //public class for initializing a new servant
-        public Servant(String name)
-        {
-            this.ServantName = name;    //will have to change once I implement how names are input
-            this.ServantStars = 0;
-            this.ServantStats = new Dictionary<String, int>();
-            this.ServantAscMats = new Dictionary<String, int>();
-            this.ServantSkillMats = new Dictionary<String, int>();
-            this.BondPoints = new List<int>();
-        }
 
         //public method for initializing a servant from database
         public Servant(String name, int stars, Dictionary<String, int> stats, Dictionary<String, int> ascMats, Dictionary<String, int> skillMats, List<int> bond)
@@ -35,7 +25,9 @@ namespace FGOTool
             this.ServantStats = stats;
             this.ServantAscMats = ascMats;
             this.ServantSkillMats = skillMats;
+            this.ServantMatCount = new Dictionary<String, int>();
             this.BondPoints = bond;
+            fillMatCount(); //populate ServantMatCount
         }
 
         //public method to get the name of a servant
@@ -65,17 +57,57 @@ namespace FGOTool
             return result;
         }
 
-        //private method that will populate the dictionaries of a servant if the servant is being initialized by name and not from user
-        private void getServantData()
+        //private method for populating ServantMatCount after initializing a servant
+        private void fillMatCount()
         {
-            //to be implemtned when I decide if I want to store all data of all servants in an sql server, or grab the information from gamepress.gg
+            foreach(String key in ServantAscMats.Keys)
+            {
+                if (!ServantMatCount.ContainsKey(key))
+                {
+                    ServantMatCount.Add(key, 0);
+                }
+            }
+            foreach (String key in ServantSkillMats.Keys)
+            {
+                if (!ServantMatCount.ContainsKey(key))
+                {
+                    ServantMatCount.Add(key, 0);
+                }
+            }
+        }
+
+        //public method to update the number of materials in ServantMatCount
+        public bool updateMatCount(String material, int num)
+        {
+            if (ServantMatCount.ContainsKey(material))
+            {
+                ServantMatCount[material] += num;   //add num to the existing number in ServantMatCount, this may have to change based on how the UI is implemented
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //public method override to return a string representation of a servant for storing in the user profile
         public override string ToString()
         {
-            //to be completed once string representation is decided on
-            return base.ToString(); //placeholder
+            /*      File Pattern
+             * Servants
+             * name,mat:count,mat:count,mat:count,...,mat:count|name,mat:count,...
+             * 
+             * the | will be added by user when saving to file
+             */
+            
+            String result = getName();
+
+            foreach(String material in ServantMatCount.Keys)
+            {
+                result += "," + material + ":" + ServantMatCount[material];
+            }
+
+            return result;
         }
     }
 }

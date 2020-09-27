@@ -28,48 +28,192 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainTabControl = new System.Windows.Forms.TabControl();
+            this.searchPage1 = new System.Windows.Forms.TabPage();
+            this.myServantPage = new System.Windows.Forms.TabPage();
+            this.searchBox = new System.Windows.Forms.TextBox();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchErrorLabel = new System.Windows.Forms.Label();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.searchResultTextBox = new System.Windows.Forms.RichTextBox();
+            this.addServantErrorLabel = new System.Windows.Forms.Label();
+            this.addServantButton = new System.Windows.Forms.Button();
+            this.clearButton = new System.Windows.Forms.Button();
+            this.mainMenuStrip.SuspendLayout();
+            this.mainTabControl.SuspendLayout();
+            this.searchPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // mainMenuStrip
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 97);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.mainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1820, 27);
+            this.mainMenuStrip.TabIndex = 0;
+            this.mainMenuStrip.Text = "menuStrip1";
             // 
-            // textBox1
+            // fileToolStripMenuItem
             // 
-            this.textBox1.Location = new System.Drawing.Point(27, 48);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(166, 20);
-            this.textBox1.TabIndex = 1;
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
+            this.fileToolStripMenuItem.Text = "File";
             // 
-            // button1
+            // editToolStripMenuItem
             // 
-            this.button1.Location = new System.Drawing.Point(200, 44);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.exportToolStripMenuItem.Text = "Export";
+            // 
+            // mainTabControl
+            // 
+            this.mainTabControl.Controls.Add(this.searchPage1);
+            this.mainTabControl.Controls.Add(this.myServantPage);
+            this.mainTabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.mainTabControl.Location = new System.Drawing.Point(0, 30);
+            this.mainTabControl.Name = "mainTabControl";
+            this.mainTabControl.SelectedIndex = 0;
+            this.mainTabControl.Size = new System.Drawing.Size(1234, 721);
+            this.mainTabControl.TabIndex = 1;
+            // 
+            // searchPage1
+            // 
+            this.searchPage1.Controls.Add(this.clearButton);
+            this.searchPage1.Controls.Add(this.addServantButton);
+            this.searchPage1.Controls.Add(this.addServantErrorLabel);
+            this.searchPage1.Controls.Add(this.searchResultTextBox);
+            this.searchPage1.Controls.Add(this.searchErrorLabel);
+            this.searchPage1.Controls.Add(this.searchButton);
+            this.searchPage1.Controls.Add(this.searchBox);
+            this.searchPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchPage1.Location = new System.Drawing.Point(4, 27);
+            this.searchPage1.Name = "searchPage1";
+            this.searchPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.searchPage1.Size = new System.Drawing.Size(1226, 690);
+            this.searchPage1.TabIndex = 0;
+            this.searchPage1.Text = "Search";
+            this.searchPage1.UseVisualStyleBackColor = true;
+            // 
+            // myServantPage
+            // 
+            this.myServantPage.Location = new System.Drawing.Point(4, 27);
+            this.myServantPage.Name = "myServantPage";
+            this.myServantPage.Padding = new System.Windows.Forms.Padding(3);
+            this.myServantPage.Size = new System.Drawing.Size(1226, 690);
+            this.myServantPage.TabIndex = 1;
+            this.myServantPage.Text = "My Servants";
+            this.myServantPage.UseVisualStyleBackColor = true;
+            // 
+            // searchBox
+            // 
+            this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchBox.Location = new System.Drawing.Point(9, 22);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(954, 26);
+            this.searchBox.TabIndex = 0;
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(971, 22);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(92, 26);
+            this.searchButton.TabIndex = 2;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchErrorLabel
+            // 
+            this.searchErrorLabel.AutoSize = true;
+            this.searchErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchErrorLabel.Location = new System.Drawing.Point(9, 55);
+            this.searchErrorLabel.Name = "searchErrorLabel";
+            this.searchErrorLabel.Size = new System.Drawing.Size(131, 16);
+            this.searchErrorLabel.TabIndex = 3;
+            this.searchErrorLabel.Text = "search error label";
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // searchResultTextBox
+            // 
+            this.searchResultTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchResultTextBox.Location = new System.Drawing.Point(8, 95);
+            this.searchResultTextBox.Name = "searchResultTextBox";
+            this.searchResultTextBox.Size = new System.Drawing.Size(1055, 567);
+            this.searchResultTextBox.TabIndex = 4;
+            this.searchResultTextBox.Text = "";
+            // 
+            // addServantErrorLabel
+            // 
+            this.addServantErrorLabel.AutoSize = true;
+            this.addServantErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addServantErrorLabel.Location = new System.Drawing.Point(9, 665);
+            this.addServantErrorLabel.Name = "addServantErrorLabel";
+            this.addServantErrorLabel.Size = new System.Drawing.Size(166, 16);
+            this.addServantErrorLabel.TabIndex = 5;
+            this.addServantErrorLabel.Text = "add servant error label";
+            // 
+            // addServantButton
+            // 
+            this.addServantButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addServantButton.Location = new System.Drawing.Point(1086, 514);
+            this.addServantButton.Name = "addServantButton";
+            this.addServantButton.Size = new System.Drawing.Size(111, 26);
+            this.addServantButton.TabIndex = 6;
+            this.addServantButton.Text = "Add Servant";
+            this.addServantButton.UseVisualStyleBackColor = true;
+            this.addServantButton.Click += new System.EventHandler(this.addServantButton_Click);
+            // 
+            // clearButton
+            // 
+            this.clearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearButton.Location = new System.Drawing.Point(1086, 580);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(111, 26);
+            this.clearButton.TabIndex = 7;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1820, 1086);
+            this.Controls.Add(this.mainTabControl);
+            this.Controls.Add(this.mainMenuStrip);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MainMenuStrip = this.mainMenuStrip;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "FGO Tool";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
+            this.mainTabControl.ResumeLayout(false);
+            this.searchPage1.ResumeLayout(false);
+            this.searchPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -77,9 +221,21 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.TabControl mainTabControl;
+        private System.Windows.Forms.TabPage searchPage1;
+        private System.Windows.Forms.TabPage myServantPage;
+        private System.Windows.Forms.TextBox searchBox;
+        private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.Label searchErrorLabel;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.RichTextBox searchResultTextBox;
+        private System.Windows.Forms.Label addServantErrorLabel;
+        private System.Windows.Forms.Button clearButton;
+        private System.Windows.Forms.Button addServantButton;
     }
 }
 
