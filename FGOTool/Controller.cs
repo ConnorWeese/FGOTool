@@ -22,8 +22,7 @@ namespace FGOTool
         //temporary method for getting servant data off the mongo database
         public Servant getServant(String name)
         {
-            //needs to be updated with a method to put the name in a common format for use on the database
-            var filter = Builders<BsonDocument>.Filter.Eq("name", name);    //creates a filter for the servant name
+            var filter = Builders<BsonDocument>.Filter.Eq("nicknames", name.ToLower()); //creates a filter for the servant name/nickname
 
             //create a client and subsequent variables to access the servantInfo collection
             var client = new MongoClient("mongodb+srv://generaluser:BIPUY9Wfb2gqwPwK@cluster0.kgl8p.mongodb.net/FGOTool?retryWrites=true&w=majority");
@@ -34,8 +33,7 @@ namespace FGOTool
             {
                 var document = collection.Find(filter).First(); //try to get the first document with that servant name
 
-                return toServant(document);
-                //return document.ToString();
+                return toServant(document); //return the servant
             }
             catch
             {
@@ -155,6 +153,11 @@ namespace FGOTool
             var ushiDoc = new BsonDocument
             {
                 { "name", "Ushiwakamaru"},
+                { "nicknames", new BsonArray
+                    {
+                       "ushiwakamaru", "ushi", "ushiwaka"
+                    }
+                },
                 { "stars", 3 },
                 { "baseHP", 1628 },
                 { "maxHP", 9028 },

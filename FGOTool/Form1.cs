@@ -48,16 +48,29 @@ namespace FGOTool
             //controller.addUshi();
         }
 
+        //when a user clicks this button, a search will happen with the database to find a return a servant
         private void searchButton_Click(object sender, EventArgs e)
         {
+            //need to add input error checking before we open a connection to the database
 
+            servantToAdd = controller.getServant(searchBox.Text);
+            if(servantToAdd != null)
+            {
+                addServantErrorLabel.Text = servantToAdd.getName(); //temp printout so I can read the results
+            }
+            else
+            {
+                addServantErrorLabel.Text = "Didn't work fam";  //temp printout so I can read the results
+            }
         }
 
+        //when a user clicks this button, the servant should be added into the user's list of servants
         private void addServantButton_Click(object sender, EventArgs e)
         {
 
         }
 
+        //when a user clicks this button, the search resuslts text box, search bar, and any error labels should be cleared
         private void clearButton_Click(object sender, EventArgs e)
         {
 
