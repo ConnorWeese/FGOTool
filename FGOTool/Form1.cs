@@ -46,6 +46,10 @@ namespace FGOTool
             controller = new Controller();
             //label1.Text = controller.getInfo();
             //controller.addUshi();
+
+            //add the tab switch event handler to the main tab controller
+            mainTabControl.SelectedIndexChanged += mainTabControl_SelectedIndexChange;
+
         }
 
         //when a user clicks this button, a search will happen with the database to find a return a servant
@@ -74,6 +78,55 @@ namespace FGOTool
         private void clearButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //event handler for when a user switches tabs
+        private void mainTabControl_SelectedIndexChange(Object sender, EventArgs e)
+        {
+            switch (mainTabControl.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    //this is where the update for the split panel will go, so that when a user adds a new servant it gets reflected
+
+                    //temp thing in order to have stuff to iterate through before I finish the User class
+                    Servant temp = controller.getServant("Ushiwakamaru");
+                    List<Servant> tester = new List<Servant>();
+                    for(int i=0; i<20; i++)
+                    {
+                        tester.Add(temp);
+                    }
+;
+
+                    updateMyServantListVisuals(tester);
+
+                    break;
+            }
+        }
+
+        //method to add new items to the list of servants viewable in the My Servants Tab
+        private void updateMyServantListVisuals(List<Servant> serList)
+        {
+            splitContainer1.Panel1.Controls.Clear();    //removes everything from the panel
+            int counter = 0;    //offset multiplier
+            
+            foreach(var ser in serList)
+            {
+                Button button = new Button();
+                button.Width = splitContainer1.Panel1.Width-30;
+                button.Height = 50;
+                button.Text = ser.getName();
+                button.Location = new Point(splitContainer1.Location.X, splitContainer1.Location.Y+(50*counter));
+                button.Click += servantButtonClickEvent;
+                splitContainer1.Panel1.Controls.Add(button);
+                counter++;
+            }
+        }
+
+        private void servantButtonClickEvent(Object sender, EventArgs e)
+        {
+            searchErrorLabel.Text = "shit works fam, go ham";
         }
     }
 }

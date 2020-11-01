@@ -30,23 +30,27 @@
         {
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.searchPage1 = new System.Windows.Forms.TabPage();
-            this.myServantPage = new System.Windows.Forms.TabPage();
-            this.searchBox = new System.Windows.Forms.TextBox();
-            this.searchButton = new System.Windows.Forms.Button();
-            this.searchErrorLabel = new System.Windows.Forms.Label();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.searchResultTextBox = new System.Windows.Forms.RichTextBox();
-            this.addServantErrorLabel = new System.Windows.Forms.Label();
-            this.addServantButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
+            this.addServantButton = new System.Windows.Forms.Button();
+            this.addServantErrorLabel = new System.Windows.Forms.Label();
+            this.searchResultTextBox = new System.Windows.Forms.RichTextBox();
+            this.searchErrorLabel = new System.Windows.Forms.Label();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchBox = new System.Windows.Forms.TextBox();
+            this.myServantPage = new System.Windows.Forms.TabPage();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.mainMenuStrip.SuspendLayout();
             this.mainTabControl.SuspendLayout();
             this.searchPage1.SuspendLayout();
+            this.myServantPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -70,17 +74,17 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
+            this.exportToolStripMenuItem.Text = "Export";
+            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(44, 23);
             this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.exportToolStripMenuItem.Text = "Export";
             // 
             // mainTabControl
             // 
@@ -111,67 +115,16 @@
             this.searchPage1.Text = "Search";
             this.searchPage1.UseVisualStyleBackColor = true;
             // 
-            // myServantPage
+            // clearButton
             // 
-            this.myServantPage.Location = new System.Drawing.Point(4, 27);
-            this.myServantPage.Name = "myServantPage";
-            this.myServantPage.Padding = new System.Windows.Forms.Padding(3);
-            this.myServantPage.Size = new System.Drawing.Size(1226, 690);
-            this.myServantPage.TabIndex = 1;
-            this.myServantPage.Text = "My Servants";
-            this.myServantPage.UseVisualStyleBackColor = true;
-            // 
-            // searchBox
-            // 
-            this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchBox.Location = new System.Drawing.Point(9, 22);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(954, 26);
-            this.searchBox.TabIndex = 0;
-            // 
-            // searchButton
-            // 
-            this.searchButton.Location = new System.Drawing.Point(971, 22);
-            this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(92, 26);
-            this.searchButton.TabIndex = 2;
-            this.searchButton.Text = "Search";
-            this.searchButton.UseVisualStyleBackColor = true;
-            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-            // 
-            // searchErrorLabel
-            // 
-            this.searchErrorLabel.AutoSize = true;
-            this.searchErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchErrorLabel.Location = new System.Drawing.Point(9, 55);
-            this.searchErrorLabel.Name = "searchErrorLabel";
-            this.searchErrorLabel.Size = new System.Drawing.Size(131, 16);
-            this.searchErrorLabel.TabIndex = 3;
-            this.searchErrorLabel.Text = "search error label";
-            // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // searchResultTextBox
-            // 
-            this.searchResultTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchResultTextBox.Location = new System.Drawing.Point(8, 95);
-            this.searchResultTextBox.Name = "searchResultTextBox";
-            this.searchResultTextBox.Size = new System.Drawing.Size(1055, 567);
-            this.searchResultTextBox.TabIndex = 4;
-            this.searchResultTextBox.Text = "";
-            // 
-            // addServantErrorLabel
-            // 
-            this.addServantErrorLabel.AutoSize = true;
-            this.addServantErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addServantErrorLabel.Location = new System.Drawing.Point(9, 665);
-            this.addServantErrorLabel.Name = "addServantErrorLabel";
-            this.addServantErrorLabel.Size = new System.Drawing.Size(166, 16);
-            this.addServantErrorLabel.TabIndex = 5;
-            this.addServantErrorLabel.Text = "add servant error label";
+            this.clearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearButton.Location = new System.Drawing.Point(1086, 580);
+            this.clearButton.Name = "clearButton";
+            this.clearButton.Size = new System.Drawing.Size(111, 26);
+            this.clearButton.TabIndex = 7;
+            this.clearButton.Text = "Clear";
+            this.clearButton.UseVisualStyleBackColor = true;
+            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // addServantButton
             // 
@@ -184,16 +137,81 @@
             this.addServantButton.UseVisualStyleBackColor = true;
             this.addServantButton.Click += new System.EventHandler(this.addServantButton_Click);
             // 
-            // clearButton
+            // addServantErrorLabel
             // 
-            this.clearButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearButton.Location = new System.Drawing.Point(1086, 580);
-            this.clearButton.Name = "clearButton";
-            this.clearButton.Size = new System.Drawing.Size(111, 26);
-            this.clearButton.TabIndex = 7;
-            this.clearButton.Text = "Clear";
-            this.clearButton.UseVisualStyleBackColor = true;
-            this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
+            this.addServantErrorLabel.AutoSize = true;
+            this.addServantErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addServantErrorLabel.Location = new System.Drawing.Point(9, 665);
+            this.addServantErrorLabel.Name = "addServantErrorLabel";
+            this.addServantErrorLabel.Size = new System.Drawing.Size(166, 16);
+            this.addServantErrorLabel.TabIndex = 5;
+            this.addServantErrorLabel.Text = "add servant error label";
+            // 
+            // searchResultTextBox
+            // 
+            this.searchResultTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchResultTextBox.Location = new System.Drawing.Point(8, 95);
+            this.searchResultTextBox.Name = "searchResultTextBox";
+            this.searchResultTextBox.Size = new System.Drawing.Size(1055, 567);
+            this.searchResultTextBox.TabIndex = 4;
+            this.searchResultTextBox.Text = "";
+            // 
+            // searchErrorLabel
+            // 
+            this.searchErrorLabel.AutoSize = true;
+            this.searchErrorLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchErrorLabel.Location = new System.Drawing.Point(9, 55);
+            this.searchErrorLabel.Name = "searchErrorLabel";
+            this.searchErrorLabel.Size = new System.Drawing.Size(131, 16);
+            this.searchErrorLabel.TabIndex = 3;
+            this.searchErrorLabel.Text = "search error label";
+            // 
+            // searchButton
+            // 
+            this.searchButton.Location = new System.Drawing.Point(971, 22);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(92, 26);
+            this.searchButton.TabIndex = 2;
+            this.searchButton.Text = "Search";
+            this.searchButton.UseVisualStyleBackColor = true;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchBox
+            // 
+            this.searchBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchBox.Location = new System.Drawing.Point(9, 22);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(954, 26);
+            this.searchBox.TabIndex = 0;
+            // 
+            // myServantPage
+            // 
+            this.myServantPage.Controls.Add(this.splitContainer1);
+            this.myServantPage.Location = new System.Drawing.Point(4, 27);
+            this.myServantPage.Name = "myServantPage";
+            this.myServantPage.Padding = new System.Windows.Forms.Padding(3);
+            this.myServantPage.Size = new System.Drawing.Size(1226, 690);
+            this.myServantPage.TabIndex = 1;
+            this.myServantPage.Text = "My Servants";
+            this.myServantPage.UseVisualStyleBackColor = true;
+            // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Size = new System.Drawing.Size(1220, 684);
+            this.splitContainer1.SplitterDistance = 390;
+            this.splitContainer1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -213,7 +231,10 @@
             this.mainTabControl.ResumeLayout(false);
             this.searchPage1.ResumeLayout(false);
             this.searchPage1.PerformLayout();
+            this.myServantPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,6 +257,7 @@
         private System.Windows.Forms.Label addServantErrorLabel;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button addServantButton;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
 
