@@ -113,20 +113,30 @@ namespace FGOTool
             
             foreach(var ser in serList)
             {
-                Button button = new Button();
-                button.Width = splitContainer1.Panel1.Width-30;
-                button.Height = 50;
-                button.Text = ser.getName();
-                button.Location = new Point(splitContainer1.Location.X, splitContainer1.Location.Y+(50*counter));
-                button.Click += servantButtonClickEvent;
-                splitContainer1.Panel1.Controls.Add(button);
-                counter++;
+                Button button = new Button();   //create a new button
+                button.Width = splitContainer1.Panel1.Width-30; //set it's width to be 30 pixels less than the total width of panel 1
+                button.Height = 50; //set the height to 50
+                button.Text = ser.getName();    //set the text of the button to be the servant's name
+                button.Location = new Point(splitContainer1.Location.X, splitContainer1.Location.Y+(50*counter));   //set the location of the button based on the number of buttons before it
+                button.Click += servantButtonClickEvent;    //add a new event to the click
+                splitContainer1.Panel1.Controls.Add(button);    //add the button to panel 1's control
+                counter++;  //increment the button counter
             }
         }
 
+        //event handler for when a user clicks on a servant button in the My Servants tab
         private void servantButtonClickEvent(Object sender, EventArgs e)
         {
-            searchErrorLabel.Text = "shit works fam, go ham";
+            splitContainer1.Panel2.Controls.Clear();    //clear everything from panel 2
+
+            Label serName = new Label();    //create a label for the servants name
+            serName.AutoSize = true;    //set label autosize to true
+            serName.Font = new Font(serName.Font.FontFamily, serName.Font.Size + 10.0f, serName.Font.Style);    //increase the label's font size
+            serName.Location = new Point(splitContainer1.Location.X, splitContainer1.Location.Y);   //set the label's location
+            serName.Text = (sender as Button).Text; //set the label's text using the text from the button that called this event
+            splitContainer1.Panel2.Controls.Add(serName);   //add the label to panel 2's controls
+
+            //this is where we need the user list of servants to be completed so we can grab the information about a servant from the list to fill the panel
         }
     }
 }

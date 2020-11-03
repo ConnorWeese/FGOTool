@@ -19,11 +19,13 @@ namespace FGOTool
         }
 
         //public method for initializing a user from file
-        public User(String materials, String servants)
+        public User(List<String> materials, List<String> servants)
         {
-            this.myServants = new List<Servant>();
-            this.myMaterials = new Dictionary<String, int>();
-            //todo: breakdown the strings for materials and servants into their respective Dictionary and List
+            this.myServants = new List<Servant>();  //initialize the list of servants
+            this.myMaterials = new Dictionary<String, int>();   //initialize the dictionary of materials
+
+            readMaterials(materials);   //populate the dictionary of materials from the list of strings
+            
         }
 
         //public method for checking if a user already has a specific servant
@@ -44,7 +46,18 @@ namespace FGOTool
         {
             if (!hasServant(servant))
             {
-                this.myServants.Add(servant);
+                this.myServants.Add(servant);   //add the new servant to the servant list
+
+                //update the user's materials after adding a new servant with potentially new materials needed
+                foreach(var mat in servant.getAscMats())
+                {
+                    addMaterial(mat.Key);
+                }
+                foreach(var mat in servant.getSkillMats())
+                {
+                    addMaterial(mat.Key);
+                }
+
                 return true;
             }
             else
@@ -119,6 +132,16 @@ namespace FGOTool
             {
                 this.myMaterials[material] = ammount;
                 return true;
+            }
+        }
+
+        //private method to populate the dictionary of materials from the given list of strings
+        private void readMaterials(List<String> materials)
+        {
+            foreach(var mat in materials)
+            {
+                var items = mat.Split(':');
+                this.myMaterials.Add(items[0], Int32.Parse(items[1]));
             }
         }
     }
