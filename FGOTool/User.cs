@@ -31,14 +31,14 @@ namespace FGOTool
         //public method for checking if a user already has a specific servant
         public bool hasServant(Servant servant)
         {
-            if (this.myServants.Contains(servant))
+            foreach(Servant ser in this.myServants)
             {
-                return true;
+                if(ser.getName() == servant.getName())
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         //public method for adding a servant to a users servant list
@@ -78,6 +78,11 @@ namespace FGOTool
             }
 
             return null;    //if no matching servant is found, return null
+        }
+
+        public List<Servant> getAllServants()
+        {
+            return this.myServants;
         }
 
         //public method for checking if a user has a certain material

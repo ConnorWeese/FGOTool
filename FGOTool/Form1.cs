@@ -50,6 +50,9 @@ namespace FGOTool
             //add the tab switch event handler to the main tab controller
             mainTabControl.SelectedIndexChanged += mainTabControl_SelectedIndexChange;
 
+            //temporary user declaration, will have to check user file later to see if a user exists to pull data from
+            user = new User();
+
         }
 
         //when a user clicks this button, a search will happen with the database to find a return a servant
@@ -92,14 +95,10 @@ namespace FGOTool
 
                     //temp thing in order to have stuff to iterate through before I finish the User class
                     Servant temp = controller.getServant("Ushiwakamaru");
-                    List<Servant> tester = new List<Servant>();
-                    for(int i=0; i<20; i++)
-                    {
-                        tester.Add(temp);
-                    }
+                    user.addServant(temp);
 ;
 
-                    updateMyServantListVisuals(tester);
+                    updateMyServantListVisuals(user.getAllServants());
 
                     break;
             }
@@ -129,14 +128,36 @@ namespace FGOTool
         {
             splitContainer1.Panel2.Controls.Clear();    //clear everything from panel 2
 
+            Servant servant = user.getServant((sender as Button).Text);    //get the servant to pull data from
+
             Label serName = new Label();    //create a label for the servants name
             serName.AutoSize = true;    //set label autosize to true
             serName.Font = new Font(serName.Font.FontFamily, serName.Font.Size + 10.0f, serName.Font.Style);    //increase the label's font size
             serName.Location = new Point(splitContainer1.Location.X, splitContainer1.Location.Y);   //set the label's location
-            serName.Text = (sender as Button).Text; //set the label's text using the text from the button that called this event
+            serName.Text = servant.getName(); ; //set the label's text to the servant name
             splitContainer1.Panel2.Controls.Add(serName);   //add the label to panel 2's controls
 
-            //this is where we need the user list of servants to be completed so we can grab the information about a servant from the list to fill the panel
+            Label serStatNames = new Label();
+            serStatNames.AutoSize = true;
+            serStatNames.Font = new Font(serStatNames.Font.FontFamily, serStatNames.Font.Size + 5.0f, serStatNames.Font.Style);
+            serStatNames.Location = new Point(splitContainer1.Location.X + serName.Height + 10, splitContainer1.Location.Y + serName.Height + 10);
+            serStatNames.Text = "";
+
+            Label serStatNums = new Label();
+            serStatNums.AutoSize = true;
+            serStatNums.Font = new Font(serStatNums.Font.FontFamily, serStatNums.Font.Size + 5.0f, serStatNums.Font.Style);
+            serStatNums.Location = new Point(splitContainer1.Location.X + serStatNames.Location.X + serStatNames.Width + 20, splitContainer1.Location.Y + serName.Height + 10);
+            serStatNums.Text = "";
+            serStatNums.TextAlign = ContentAlignment.TopRight;
+
+            foreach (var stat in servant.getStats())
+            {
+                serStatNames.Text += stat.Key + ":" + Environment.NewLine;
+                serStatNums.Text += stat.Value + Environment.NewLine;
+            }
+            splitContainer1.Panel2.Controls.Add(serStatNames);
+            splitContainer1.Panel2.Controls.Add(serStatNums);
+
         }
     }
 }
