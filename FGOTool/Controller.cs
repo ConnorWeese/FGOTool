@@ -183,10 +183,9 @@ namespace FGOTool
                 }
             };
 
-            var client = new MongoClient("mongodb+srv://caweese:12Daishouri@cluster0.kgl8p.mongodb.net/FGOTool?retryWrites=true&w=majority");
-            var database = client.GetDatabase("servants");
+            /*var database = client.GetDatabase("servants");
             var collection = database.GetCollection<BsonDocument>("servantInfo");
-            collection.InsertOne(ushiDoc);
+            collection.InsertOne(ushiDoc);*/
         }
     }
 }
