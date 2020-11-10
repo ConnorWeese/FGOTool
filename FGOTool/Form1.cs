@@ -130,6 +130,11 @@ namespace FGOTool
 
             Servant servant = user.getServant((sender as Button).Text);    //get the servant to pull data from
 
+            displayServantData(servant);
+        }
+
+        private void displayServantData(Servant servant)
+        {
             Label serName = new Label();    //create a label for the servants name
             serName.AutoSize = true;    //set label autosize to true
             serName.Font = new Font(serName.Font.FontFamily, serName.Font.Size + 10.0f, serName.Font.Style);    //increase the label's font size
@@ -137,27 +142,78 @@ namespace FGOTool
             serName.Text = servant.getName(); ; //set the label's text to the servant name
             splitContainer1.Panel2.Controls.Add(serName);   //add the label to panel 2's controls
 
-            Label serStatNames = new Label();
-            serStatNames.AutoSize = true;
-            serStatNames.Font = new Font(serStatNames.Font.FontFamily, serStatNames.Font.Size + 5.0f, serStatNames.Font.Style);
-            serStatNames.Location = new Point(splitContainer1.Location.X + serName.Height + 10, splitContainer1.Location.Y + serName.Height + 10);
-            serStatNames.Text = "";
+            //base hp, max hp, grail hp
+            Label serHPNames = new Label();
+            serHPNames.AutoSize = true;
+            serHPNames.Font = new Font(serHPNames.Font.FontFamily, serHPNames.Font.Size + 5.0f, serHPNames.Font.Style);
+            serHPNames.Location = new Point(splitContainer1.Location.X + serName.Height + 10, splitContainer1.Location.Y + serName.Height + 10);
+            serHPNames.Text = "";
 
-            Label serStatNums = new Label();
-            serStatNums.AutoSize = true;
-            serStatNums.Font = new Font(serStatNums.Font.FontFamily, serStatNums.Font.Size + 5.0f, serStatNums.Font.Style);
-            serStatNums.Location = new Point(splitContainer1.Location.X + serStatNames.Location.X + serStatNames.Width + 20, splitContainer1.Location.Y + serName.Height + 10);
-            serStatNums.Text = "";
-            serStatNums.TextAlign = ContentAlignment.TopRight;
+            //hp numbers
+            Label serHPNums = new Label();
+            serHPNums.AutoSize = true;
+            serHPNums.Font = new Font(serHPNums.Font.FontFamily, serHPNums.Font.Size + 5.0f, serHPNums.Font.Style);
+            serHPNums.Location = new Point(splitContainer1.Location.X + serHPNames.Location.X + serHPNames.Width + 20, splitContainer1.Location.Y + serName.Height + 10);
+            serHPNums.Text = "";
+            serHPNums.TextAlign = ContentAlignment.TopRight;
 
+            //base atk, max atk, grail atk
+            Label serATKNames = new Label();
+            serATKNames.AutoSize = true;
+            serATKNames.Font = new Font(serATKNames.Font.FontFamily, serATKNames.Font.Size + 5.0f, serATKNames.Font.Style);
+            serATKNames.Location = new Point(splitContainer1.Location.X + serHPNums.Location.X + 100, splitContainer1.Location.Y + serName.Height + 10);
+            serATKNames.Text = "";
+
+            //atk numbers
+            Label serATKNums = new Label();
+            serATKNums.AutoSize = true;
+            serATKNums.Font = new Font(serATKNums.Font.FontFamily, serATKNums.Font.Size + 5.0f, serATKNums.Font.Style);
+            serATKNums.Location = new Point(splitContainer1.Location.X + serATKNames.Location.X + serATKNames.Width + 20, splitContainer1.Location.Y + serName.Height + 10);
+            serATKNums.Text = "";
+            serATKNums.TextAlign = ContentAlignment.TopRight;
+
+            int counter = 0;
             foreach (var stat in servant.getStats())
             {
-                serStatNames.Text += stat.Key + ":" + Environment.NewLine;
-                serStatNums.Text += stat.Value + Environment.NewLine;
+                if (counter < 3)
+                {
+                    serHPNames.Text += stat.Key + ":" + Environment.NewLine;
+                    serHPNums.Text += String.Format("{0:n0}", stat.Value) + Environment.NewLine;
+                }
+                else
+                {
+                    serATKNames.Text += stat.Key + ":" + Environment.NewLine;
+                    serATKNums.Text += String.Format("{0:n0}", stat.Value) + Environment.NewLine;
+                }
+                counter++;
             }
-            splitContainer1.Panel2.Controls.Add(serStatNames);
-            splitContainer1.Panel2.Controls.Add(serStatNums);
+            splitContainer1.Panel2.Controls.Add(serHPNames);
+            splitContainer1.Panel2.Controls.Add(serHPNums);
+            splitContainer1.Panel2.Controls.Add(serATKNames);
+            splitContainer1.Panel2.Controls.Add(serATKNums);
 
+            //servant material names
+            Label serMatNames = new Label();
+            serMatNames.AutoSize = true;
+            serMatNames.Font = new Font(serMatNames.Font.FontFamily, serMatNames.Font.Size + 5.0f, serMatNames.Font.Style);
+            serMatNames.Location = new Point(splitContainer1.Location.X + serName.Height + 10, splitContainer1.Location.Y + serHPNames.Height + 65);
+            serMatNames.Text = "";
+
+            //servant material totals
+            Label serMatNums = new Label();
+            serMatNums.AutoSize = true;
+            serMatNums.Font = new Font(serMatNums.Font.FontFamily, serMatNums.Font.Size + 5.0f, serMatNums.Font.Style);
+            serMatNums.Location = new Point(splitContainer1.Location.X + serMatNames.Location.X + serMatNames.Width + 100, splitContainer1.Location.Y + serHPNames.Height + 65);
+            serMatNums.Text = "";
+            serMatNums.TextAlign = ContentAlignment.TopRight;
+
+            foreach (var mat in servant.getTotalMats())
+            {
+                serMatNames.Text += mat.Key + ":" + Environment.NewLine;
+                serMatNums.Text += String.Format("{0:n0}", mat.Value) + Environment.NewLine;
+            }
+            splitContainer1.Panel2.Controls.Add(serMatNames);
+            splitContainer1.Panel2.Controls.Add(serMatNums);
         }
     }
 }

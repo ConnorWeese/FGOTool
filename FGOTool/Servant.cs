@@ -57,6 +57,20 @@ namespace FGOTool
             return result;
         }
 
+        public Dictionary<String, int> getTotalMats()
+        {
+            Dictionary<String, int> result = this.ServantMatCount;
+            foreach(var mat in this.ServantAscMats)
+            {
+                result[mat.Key] += this.ServantAscMats[mat.Key];
+            }
+            foreach(var mat in this.ServantSkillMats)
+            {
+                result[mat.Key] += this.ServantSkillMats[mat.Key];
+            }
+            return result;
+        }
+
         //private method for populating ServantMatCount after initializing a servant
         private void fillMatCount()
         {
