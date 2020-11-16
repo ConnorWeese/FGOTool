@@ -57,16 +57,38 @@ namespace FGOTool
             return result;
         }
 
-        public Dictionary<String, int> getTotalMats()
+        //public method to return the dictionary containing the number of materials used
+        public Dictionary<String, int> getMatCount()
         {
             Dictionary<String, int> result = this.ServantMatCount;
+            return result;
+        }
+
+        //public method to return a dictionary continaining the total number of materials needed for the servant
+        public Dictionary<String, int> getTotalMats()
+        {
+            Dictionary<String, int> result = new Dictionary<String, int>();
             foreach(var mat in this.ServantAscMats)
             {
-                result[mat.Key] += this.ServantAscMats[mat.Key];
+                if (!result.ContainsKey(mat.Key))
+                {
+                    result.Add(mat.Key, this.ServantAscMats[mat.Key]);
+                }
+                else
+                {
+                    result[mat.Key] += this.ServantAscMats[mat.Key];
+                }
             }
             foreach(var mat in this.ServantSkillMats)
             {
-                result[mat.Key] += this.ServantSkillMats[mat.Key];
+                if (!result.ContainsKey(mat.Key))
+                {
+                    result.Add(mat.Key, this.ServantSkillMats[mat.Key]);
+                }
+                else
+                {
+                    result[mat.Key] += this.ServantSkillMats[mat.Key];
+                }
             }
             return result;
         }

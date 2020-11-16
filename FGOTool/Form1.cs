@@ -192,28 +192,52 @@ namespace FGOTool
             splitContainer1.Panel2.Controls.Add(serATKNames);
             splitContainer1.Panel2.Controls.Add(serATKNums);
 
-            //servant material names
-            Label serMatNames = new Label();
-            serMatNames.AutoSize = true;
-            serMatNames.Font = new Font(serMatNames.Font.FontFamily, serMatNames.Font.Size + 5.0f, serMatNames.Font.Style);
-            serMatNames.Location = new Point(splitContainer1.Location.X + serName.Height + 10, splitContainer1.Location.Y + serHPNames.Height + 65);
-            serMatNames.Text = "";
-
-            //servant material totals
-            Label serMatNums = new Label();
-            serMatNums.AutoSize = true;
-            serMatNums.Font = new Font(serMatNums.Font.FontFamily, serMatNums.Font.Size + 5.0f, serMatNums.Font.Style);
-            serMatNums.Location = new Point(splitContainer1.Location.X + serMatNames.Location.X + serMatNames.Width + 100, splitContainer1.Location.Y + serHPNames.Height + 65);
-            serMatNums.Text = "";
-            serMatNums.TextAlign = ContentAlignment.TopRight;
-
+            counter = 0;
             foreach (var mat in servant.getTotalMats())
             {
-                serMatNames.Text += mat.Key + ":" + Environment.NewLine;
-                serMatNums.Text += String.Format("{0:n0}", mat.Value) + Environment.NewLine;
+                //label to display the name of a material
+                Label serMatNames = new Label();
+                serMatNames.AutoSize = true;
+                serMatNames.Font = new Font(serMatNames.Font.FontFamily, serMatNames.Font.Size + 5.0f, serMatNames.Font.Style);
+                serMatNames.Location = new Point(splitContainer1.Location.X + serName.Height + 10, splitContainer1.Location.Y + serHPNames.Height + 65 + (35 * counter));
+                serMatNames.Text += mat.Key + ":";
+
+                
+
+                //label to display the total number of a material that a servant needs
+                Label serMatNums = new Label();
+                serMatNums.Width = 110;
+                serMatNums.Font = new Font(serMatNums.Font.FontFamily, serMatNums.Font.Size + 5.0f, serMatNums.Font.Style);
+                serMatNums.Location = new Point(splitContainer1.Location.X + serMatNames.Location.X + serMatNames.Width + 100, splitContainer1.Location.Y + serHPNames.Height + 65 + (35 * counter));
+                serMatNums.TextAlign = ContentAlignment.TopRight;
+                serMatNums.Text += String.Format("{0:n0}", mat.Value);
+
+                
+
+                //skip the textbox for a servant's QP numbers, it won't be very usable to have a user increment QP by 1 each time
+                //      or remember how much they've gone up by an manually type it in
+                if (counter != 0)
+                {
+                    //textbox to display user entered values for the number of materials used
+                    TextBox usedMatBox = new TextBox();
+                    usedMatBox.Font = new Font(usedMatBox.Font.FontFamily, usedMatBox.Font.Size + 5.0f, usedMatBox.Font.Style);
+                    usedMatBox.Location = new Point(splitContainer1.Location.X + serMatNums.Location.X + serMatNums.Width + 40, splitContainer1.Location.Y + serHPNames.Height + 63 + (35 * counter));
+                    usedMatBox.TextAlign = HorizontalAlignment.Right;
+                    usedMatBox.Text = String.Format("{0:n0}", servant.getMatCount()[mat.Key]);
+                    
+                    //add the textbox to the panel controls
+                    splitContainer1.Panel2.Controls.Add(usedMatBox);
+                }
+                
+                //increment the counter
+                counter++;
+
+                //adding the labels to the control earlier in the code ruins the layout
+
+                //add the labels to the panel controls
+                splitContainer1.Panel2.Controls.Add(serMatNames);
+                splitContainer1.Panel2.Controls.Add(serMatNums);
             }
-            splitContainer1.Panel2.Controls.Add(serMatNames);
-            splitContainer1.Panel2.Controls.Add(serMatNums);
         }
     }
 }
